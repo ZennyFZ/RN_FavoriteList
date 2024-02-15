@@ -18,4 +18,8 @@ const filterOrchid = (category) => {
     }
 }
 
-export { getOrchidCategory, filterOrchid }
+const getOrchidById = (id) => {
+    return DummyData[id]
+}
+
+export { getOrchidCategory, filterOrchid, getOrchidById }

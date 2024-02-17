@@ -56,6 +56,33 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: 120,
         backgroundColor: '#92B4D3', 
+    },
+    orchidButtonBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10
+    },
+    orchidButtonColor: {
+        color: 'white'
+    },
+    orchidAddButton: {
+        backgroundColor: '#92B4D3',
+        marginLeft: 5, 
+        padding: 10, 
+        borderRadius: 10
+    },
+    orchidFavoritedButton: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    orchidFavoritedImage: {
+        height: 25, 
+        width: 25
+    },
+    orchidFavoritedText: {
+        color: 'white',
+        marginLeft: 5
     }
 });
 

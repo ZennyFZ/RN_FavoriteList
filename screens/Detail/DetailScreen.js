@@ -1,16 +1,27 @@
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import styles from "./Style"
-import { getOrchidById } from "../../utils/OrchidUtils"
+import { getOrchidById, addToFavorite, removeFromFavorite } from "../../utils/OrchidUtils"
 import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 const DetailScreen = ({ route }) => {
+    const [orchidData, setOrchidData] = useState({})
     const navigation = useNavigation()
     const orchidId = route.params.id
-    const orchidData = getOrchidById(orchidId)
+
+    const getOrchidData = async () => {
+        getOrchidById(orchidId).then((data) => {
+            setOrchidData(data)
+        })
+    }
 
     const goToHome = () => {
         navigation.navigate("Home")
     }
+
+    useEffect(() => {
+        getOrchidData()
+    }, [])
 
     return (
         <View>
@@ -27,9 +38,20 @@ const DetailScreen = ({ route }) => {
                 <Image source={{ uri: orchidData.image }} style={styles.detailImage} />
                 <Text style={styles.detailDescription}>{orchidData.description}</Text>
             </View>
-            <TouchableOpacity style={styles.addFavoriteBox}>
-                <Text style={styles.addFavorite}>Add to Favorite</Text>
-            </TouchableOpacity>
+            <View style={styles.orchidButtonBox}>
+                {orchidData.favorite ? (
+                    <TouchableOpacity style={styles.orchidAddButton} onPress={() => {removeFromFavorite(orchidData.id - 1)}}>
+                        <View style={styles.orchidFavoritedButton}>
+                            <Image source={require('../../assets/Favorite.png')} style={styles.orchidFavoritedImage} />
+                            <Text style={styles.orchidFavoritedText}>Favorited</Text>
+                        </View>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity style={styles.orchidAddButton} onPress={() => {addToFavorite(orchidData.id - 1)}}>
+                        <Text style={styles.orchidButtonColor}>Add to Favorite</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
         </View>
     );
 }

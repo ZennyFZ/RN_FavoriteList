@@ -4,11 +4,26 @@ import HomeScreen from './screens/Homepage/HomeScreen';
 import DetailScreen from './screens/Detail/DetailScreen';
 import FavoriteScreen from './screens/Favorite/FavoriteScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useEffect } from 'react';
+import { storeData, retrieveData } from './utils/OrchidUtils';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  
+
+  const getData = async () => {
+    let data = await retrieveData();
+    if (data.length > 0) {
+      return data;
+    }else{
+      storeData();
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
+
   const screenOptions = ({ route }) => ({
     headerShown: false,
     tabBarIcon: ({ focused, color, size }) => {

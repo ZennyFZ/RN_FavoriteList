@@ -1,4 +1,32 @@
 import DummyData from "../assets/DummyData"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const storeData = async () => {
+    try {
+        await AsyncStorage.setItem('orchidList', JSON.stringify(DummyData));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const retrieveData = async () => {
+    try {
+        const value = await AsyncStorage.getItem('orchidList');
+        if (value !== null) {
+            return JSON.parse(value)
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const updateData = async (data) => {
+    try {
+        await AsyncStorage.setItem('orchidList', JSON.stringify(data));
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 const getOrchidCategory = () => {
     let category = []
@@ -10,16 +38,30 @@ const getOrchidCategory = () => {
     return category
 }
 
-const filterOrchid = (category) => {
-    if (category.toLowerCase() === "all") {
-        return DummyData
+const filterOrchid = async (category) => {
+    let orchid = await retrieveData()
+    if (category === "all") {
+        return orchid
     } else {
-        return DummyData.filter((item) => item.category === category)
+        return orchid.filter((item) => item.category === category)
     }
 }
 
-const getOrchidById = (id) => {
-    return DummyData[id]
+const getOrchidById = async (id) => {
+    let orchid = await retrieveData()
+    return orchid[id]
 }
 
-export { getOrchidCategory, filterOrchid, getOrchidById }
+const removeFromFavorite = async (id) => {
+    let orchid = await retrieveData()
+    orchid[id].favorite = false
+    updateData(orchid)
+}
+
+const addToFavorite = async (id) => {
+    let orchid = await retrieveData()
+    orchid[id].favorite = true
+    updateData(orchid)
+}
+
+export { storeData, retrieveData, getOrchidCategory, filterOrchid, getOrchidById, removeFromFavorite, addToFavorite }

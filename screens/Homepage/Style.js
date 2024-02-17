@@ -79,11 +79,23 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     orchidAddButton: {
-        backgroundColor: '#92B4D3', 
+        backgroundColor: '#92B4D3',
         marginLeft: 5, 
         padding: 10, 
         borderRadius: 10
     },
+    orchidFavoritedButton: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    orchidFavoritedImage: {
+        height: 25, 
+        width: 25
+    },
+    orchidFavoritedText: {
+        color: 'white',
+        marginLeft: 5
+    }
 });
 
 export default styles;

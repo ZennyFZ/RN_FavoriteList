@@ -1,21 +1,41 @@
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from "react-native"
 import styles from "./Style"
-import { filterOrchid, getOrchidCategory } from "../../utils/OrchidUtils"
+import { filterOrchid, getOrchidCategory, addToFavorite, removeFromFavorite } from "../../utils/OrchidUtils"
 import { useEffect, useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 
 const Homepage = () => {
     const [selectedOrchid, setSelectedOrchid] = useState(-1)
-    const [orchidData, setOrchidData] = useState()
+    const [orchidData, setOrchidData] = useState([])
     const navigation = useNavigation()
 
     const goToDetail = (index) => {
         navigation.navigate("Detail", { id: index - 1 })
     }
 
+    const filterOrchidData = (category) => {
+        filterOrchid(category).then((data) => {
+            setOrchidData(data)
+        })
+    }
+
     useEffect(() => {
-        setOrchidData(filterOrchid("all"))
+        filterOrchidData("all")
     }, [])
+
+    const addFavorite = (id) => {
+        let orchidDataArray = [...orchidData]
+        orchidDataArray[id].favorite = true
+        setOrchidData(orchidDataArray)
+        addToFavorite(id)
+    }
+
+    const removeFavorite = (id) => {
+        let orchidDataArray = [...orchidData]
+        orchidDataArray[id].favorite = false
+        setOrchidData(orchidDataArray)
+        removeFromFavorite(id)
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -30,12 +50,12 @@ const Homepage = () => {
                     horizontal
                     style={styles.scrollView}
                 >
-                    <TouchableOpacity style={[styles.allOrchids, { backgroundColor: selectedOrchid < 0 ? '#92B4D3' : '#d3d8e0' }]} onPress={() => { setSelectedOrchid(-1), setOrchidData(filterOrchid("all")) }}>
+                    <TouchableOpacity style={[styles.allOrchids, { backgroundColor: selectedOrchid < 0 ? '#92B4D3' : '#d3d8e0' }]} onPress={() => { setSelectedOrchid(-1), filterOrchidData("all") }}>
                         <Text style={styles.allOrchidText}>All Orchids</Text>
                     </TouchableOpacity>
                     {getOrchidCategory().map((item, index) => {
                         return (
-                            <TouchableOpacity key={index} style={[styles.allOrchids, { backgroundColor: selectedOrchid === index ? '#92B4D3' : '#d3d8e0' }]} onPress={() => { setSelectedOrchid(index), setOrchidData(filterOrchid(item)) }}>
+                            <TouchableOpacity key={index} style={[styles.allOrchids, { backgroundColor: selectedOrchid === index ? '#92B4D3' : '#d3d8e0' }]} onPress={() => { setSelectedOrchid(index), filterOrchidData(item) }}>
                                 <Text style={styles.allOrchidText}>{item}</Text>
                             </TouchableOpacity>
                         )
@@ -57,9 +77,18 @@ const Homepage = () => {
                                     <TouchableOpacity style={styles.orchidViewButton} onPress={() => goToDetail(item.id)}>
                                         <Text style={styles.orchidButtonColor}>View</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={styles.orchidAddButton}>
-                                        <Text style={styles.orchidButtonColor}>Add to Favorite</Text>
-                                    </TouchableOpacity>
+                                    {item.favorite ? (
+                                        <TouchableOpacity style={styles.orchidAddButton} onPress={() => removeFavorite(item.id-1)}>
+                                            <View style={styles.orchidFavoritedButton}>
+                                                <Image source={require('../../assets/Favorite.png')} style={styles.orchidFavoritedImage} />
+                                                <Text style={styles.orchidFavoritedText}>Favorited</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    ) : (
+                                        <TouchableOpacity style={styles.orchidAddButton} onPress={() => addFavorite(item.id-1)}>
+                                            <Text style={styles.orchidButtonColor}>Add to Favorite</Text>
+                                        </TouchableOpacity>
+                                    )}
                                 </View>
                             </View>
                         </View>

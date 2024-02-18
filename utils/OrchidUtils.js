@@ -64,4 +64,9 @@ const addToFavorite = async (id) => {
     updateData(orchid)
 }
 
-export { storeData, retrieveData, getOrchidCategory, filterOrchid, getOrchidById, removeFromFavorite, addToFavorite }
+const retrieveFavorite = async () => {
+    let orchid = await retrieveData()
+    return orchid.filter((item) => item.favorite === true)
+}
+
+export { storeData, retrieveData, getOrchidCategory, filterOrchid, getOrchidById, removeFromFavorite, addToFavorite, retrieveFavorite }

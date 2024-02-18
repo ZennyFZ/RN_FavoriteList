@@ -1,8 +1,8 @@
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from "react-native"
 import styles from "./Style"
 import { filterOrchid, getOrchidCategory, addToFavorite, removeFromFavorite } from "../../utils/OrchidUtils"
-import { useEffect, useState } from "react"
-import { useNavigation } from "@react-navigation/native"
+import { useState, useCallback } from "react"
+import { useNavigation, useFocusEffect } from "@react-navigation/native"
 
 const Homepage = () => {
     const [selectedOrchid, setSelectedOrchid] = useState(-1)
@@ -19,9 +19,11 @@ const Homepage = () => {
         })
     }
 
-    useEffect(() => {
-        filterOrchidData("all")
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            filterOrchidData("all")
+        }, [])
+    )
 
     const addFavorite = (id) => {
         let orchidDataArray = [...orchidData]

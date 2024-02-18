@@ -15,7 +15,7 @@ export default function App() {
     let data = await retrieveData();
     if (data.length > 0) {
       return data;
-    }else{
+    } else {
       storeData();
     }
   }
@@ -42,11 +42,16 @@ export default function App() {
     tabBarInactiveTintColor: 'gray',
   })
 
+  const tabOptions = {
+    tabBarButton: () => null,
+    tabBarStyle: { display: 'none' },
+  }
+
   return (
-    <NavigationContainer style={{backgroundColor: "#9ca3af40"}}>
+    <NavigationContainer style={{ backgroundColor: "#9ca3af40" }}>
       <Tab.Navigator initialRouteName='Home' screenOptions={screenOptions} >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Detail" component={DetailScreen} />
+        <Tab.Screen name="Detail" component={DetailScreen} options={tabOptions} />
         <Tab.Screen name="Favorite" component={FavoriteScreen} />
       </Tab.Navigator>
     </NavigationContainer>

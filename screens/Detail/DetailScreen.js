@@ -21,7 +21,7 @@ const DetailScreen = ({ route }) => {
 
     useEffect(() => {
         getOrchidData()
-    }, [])
+    }, [orchidData])
 
     return (
         <View>

@@ -14,6 +14,9 @@ const Homepage = () => {
     }
 
     const filterOrchidData = (category) => {
+        if(category === "all") {
+            setSelectedOrchid(-1)
+        }
         filterOrchid(category).then((data) => {
             setOrchidData(data)
         })
@@ -25,16 +28,16 @@ const Homepage = () => {
         }, [])
     )
 
-    const addFavorite = (id) => {
+    const addFavorite = (index, id) => {
         let orchidDataArray = [...orchidData]
-        orchidDataArray[id].favorite = true
+        orchidDataArray[index].favorite = true
         setOrchidData(orchidDataArray)
         addToFavorite(id)
     }
 
-    const removeFavorite = (id) => {
+    const removeFavorite = (index, id) => {
         let orchidDataArray = [...orchidData]
-        orchidDataArray[id].favorite = false
+        orchidDataArray[index].favorite = false
         setOrchidData(orchidDataArray)
         removeFromFavorite(id)
     }
@@ -68,7 +71,7 @@ const Homepage = () => {
             <FlatList
                 data={orchidData}
                 keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item }) => {
+                renderItem={({index, item }) => {
                     return (
                         <View style={styles.flatList}>
                             <Image source={{ uri: item.image }} style={styles.orchidImage} />
@@ -80,14 +83,14 @@ const Homepage = () => {
                                         <Text style={styles.orchidButtonColor}>View</Text>
                                     </TouchableOpacity>
                                     {item.favorite ? (
-                                        <TouchableOpacity style={styles.orchidAddButton} onPress={() => removeFavorite(item.id-1)}>
+                                        <TouchableOpacity style={styles.orchidAddButton} onPress={() => removeFavorite(index, item.id-1)}>
                                             <View style={styles.orchidFavoritedButton}>
                                                 <Image source={require('../../assets/Favorite.png')} style={styles.orchidFavoritedImage} />
                                                 <Text style={styles.orchidFavoritedText}>Favorited</Text>
                                             </View>
                                         </TouchableOpacity>
                                     ) : (
-                                        <TouchableOpacity style={styles.orchidAddButton} onPress={() => addFavorite(item.id-1)}>
+                                        <TouchableOpacity style={styles.orchidAddButton} onPress={() => addFavorite(index, item.id-1)}>
                                             <Text style={styles.orchidButtonColor}>Add to Favorite</Text>
                                         </TouchableOpacity>
                                     )}

@@ -36,6 +36,17 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
     },
+    orchidRemoveAllButton: {
+        backgroundColor: '#92B4D3',
+        padding: 10,
+        borderRadius: 10,
+        marginTop: 10,
+        width: windowWidth / 4,
+        height: windowHeight / 20,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     orchidFavoritedImage: {
         height: 25, 
         width: 25

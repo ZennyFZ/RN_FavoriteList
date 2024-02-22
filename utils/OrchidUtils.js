@@ -58,6 +58,12 @@ const removeFromFavorite = async (id) => {
     updateData(orchid)
 }
 
+const clearFavorite = async () => {
+    let orchid = await retrieveData()
+    orchid.forEach((item) => item.favorite = false)
+    updateData(orchid)
+}
+
 const addToFavorite = async (id) => {
     let orchid = await retrieveData()
     orchid[id].favorite = true
@@ -69,4 +75,4 @@ const retrieveFavorite = async () => {
     return orchid.filter((item) => item.favorite === true)
 }
 
-export { storeData, retrieveData, getOrchidCategory, filterOrchid, getOrchidById, removeFromFavorite, addToFavorite, retrieveFavorite }
+export { storeData, retrieveData, getOrchidCategory, filterOrchid, getOrchidById, removeFromFavorite, clearFavorite, addToFavorite, retrieveFavorite }

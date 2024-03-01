@@ -10,7 +10,7 @@ const Homepage = () => {
     const navigation = useNavigation()
 
     const goToDetail = (index) => {
-        navigation.navigate("Detail", { id: index - 1 })
+        navigation.navigate("Detail", { id: index - 1, prevScreen: "Home" })
     }
 
     const filterOrchidData = (category) => {

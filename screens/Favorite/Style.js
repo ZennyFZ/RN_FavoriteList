@@ -16,6 +16,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         margin: 10
     },
+    favoriteCardBox: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: 10
+    },
+    nameAndButton: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        marginLeft: 10
+    },
     favoriteImage: {
         width: 100,
         height: 100,

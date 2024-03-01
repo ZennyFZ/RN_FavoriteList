@@ -8,6 +8,7 @@ const DetailScreen = ({ route }) => {
     const [orchidData, setOrchidData] = useState({})
     const navigation = useNavigation()
     const orchidId = route.params.id
+    const prevScreen = route.params.prevScreen
 
     const getOrchidData = async () => {
         getOrchidById(orchidId).then((data) => {
@@ -15,8 +16,8 @@ const DetailScreen = ({ route }) => {
         })
     }
 
-    const goToHome = () => {
-        navigation.navigate("Home")
+    const goBack = () => {
+        navigation.navigate(prevScreen)
     }
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const DetailScreen = ({ route }) => {
 
     return (
         <View>
-            <TouchableOpacity onPress={goToHome}>
+            <TouchableOpacity onPress={goBack}>
                 <Image source={require('../../assets/Arrow.png')} style={styles.arrow} />
             </TouchableOpacity>
             <View style={styles.detailHeader}>

@@ -13,7 +13,7 @@ export default function App() {
 
   const getData = async () => {
     let data = await retrieveData();
-    if (data.length > 0) {
+    if (data?.length > 0) {
       return data;
     } else {
       storeData();

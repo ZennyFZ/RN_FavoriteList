@@ -34,9 +34,16 @@ const styles = StyleSheet.create({
         height: 500
     },
     detailDescription: {
+        marginTop: 20,
+        padding: 10,
+        backgroundColor: '#d3d8e0',
+        borderRadius: 10
+    },
+    description: {
         fontSize: 25,
+        color: 'black',
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     addFavoriteBox: {
         display: 'flex',
@@ -61,7 +68,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 10
+        marginTop: 10,
+        marginBottom: 10
     },
     orchidButtonColor: {
         color: 'white'

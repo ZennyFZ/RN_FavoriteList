@@ -62,11 +62,11 @@ const FavoriteScreen = () => {
 
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <Text style={styles.favoriteHeader}>Favorite</Text>
             {
                 favoriteOrchid.length > 0 ? (
-                    <View>
+                    <View style={{flex: 1}}>
                         <FlatList
                             data={favoriteOrchid}
                             keyExtractor={(item) => item.id}
@@ -74,7 +74,9 @@ const FavoriteScreen = () => {
                                 <View key={item.id - 1} style={styles.favoriteBody}>
                                     <TouchableOpacity style={styles.favoriteCardBox} onPress={() => viewOrchid(item.id - 1)}>
                                         <Image source={{ uri: item.image }} style={styles.favoriteImage} />
-                                        <Text style={styles.favoriteText}>{item.name}</Text>
+                                        <View style={{ width: 200 }}>
+                                            <Text style={styles.favoriteText}>{item.name}</Text>
+                                        </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.orchidAddButton} onPress={() => removeFavorite(item.id - 1)}>
                                         <Text style={styles.orchidFavoritedText}>Remove</Text>
@@ -83,9 +85,15 @@ const FavoriteScreen = () => {
                             )}
                         />
 
-                        <TouchableOpacity style={styles.orchidRemoveAllButton} onPress={() => removeFavoriteAll()}>
-                            <Text style={styles.orchidFavoritedText}>Remove All</Text>
-                        </TouchableOpacity>
+                        {
+                            favoriteOrchid.length > 1 ? (
+                                <TouchableOpacity style={styles.orchidRemoveAllButton} onPress={() => removeFavoriteAll()}>
+                                    <Text style={styles.orchidFavoritedText}>Remove All</Text>
+                                </TouchableOpacity>
+                            ) : (
+                                <View></View>
+                            )
+                        }
                     </View>
                 ) : (
                     <View style={styles.emptyFavorite}>

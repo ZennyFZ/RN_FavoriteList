@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 20
     },
+    favoriteFlatList: {
+        height: windowHeight / 1.5,
+    },
     favoriteBody: {
         display: "flex",
         flexDirection: "row",

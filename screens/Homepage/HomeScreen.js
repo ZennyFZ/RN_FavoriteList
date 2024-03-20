@@ -73,14 +73,14 @@ const Homepage = () => {
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({index, item }) => {
                     return (
+                        <TouchableOpacity onPress={() => goToDetail(item.id)}>
                         <View style={styles.flatList}>
                             <Image source={{ uri: item.image }} style={styles.orchidImage} />
                             <View style={styles.orchidInformationBox}>
                                 <Text style={styles.orchidName}>{item.name}</Text>
                                 <Text style={styles.orchidCategory}>Category: {item.category}</Text>
                                 <View style={styles.orchidButtonBox}>
-                                    <TouchableOpacity style={styles.orchidViewButton} onPress={() => goToDetail(item.id)}>
-                                        <Text style={styles.orchidButtonColor}>View</Text>
+                                    <TouchableOpacity onPress={() => goToDetail(item.id)}>
                                     </TouchableOpacity>
                                     {item.favorite ? (
                                         <TouchableOpacity style={styles.orchidAddButton} onPress={() => removeFavorite(index, item.id-1)}>
@@ -97,6 +97,7 @@ const Homepage = () => {
                                 </View>
                             </View>
                         </View>
+                        </TouchableOpacity>
                     )
                 }}
             />
